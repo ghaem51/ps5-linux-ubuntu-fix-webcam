@@ -1,0 +1,11 @@
+name: Check source
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check shell syntax
+        run: find . -name '*.sh' -print0 | xargs -0 -r -n1 bash -n
+      - name: Compile Python sources
+        run: python3 -m compileall -q .
